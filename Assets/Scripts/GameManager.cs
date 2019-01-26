@@ -2,6 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum PlayerType
+{
+    Red=1,
+    Blue,
+    Green,
+    Yellow
+}
+
 public class GameManager : MonoBehaviour
 {
     Dictionary<int, PlayerBehaviour> players;
@@ -9,8 +17,10 @@ public class GameManager : MonoBehaviour
     public List<GameObject> levelTiles;
     public Queue<GameObject> currentLevel;
     public float scrollSpeed = 15f;
+
     private float thresholdX;
     private float w;
+
     // Start is called before the first frame update
     void Start()
     {
