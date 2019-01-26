@@ -17,6 +17,7 @@ public class HouseSlot : MonoBehaviour
     {
         items = new List<Item>();
         collider = GetComponent<BoxCollider>();
+        collider.isTrigger = true;
     }
 
     private void Update()
