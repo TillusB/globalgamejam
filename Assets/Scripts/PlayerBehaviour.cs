@@ -43,12 +43,16 @@ public class PlayerBehaviour : MonoBehaviour
     private int layerMask = 1 << 9;
 
     private Rigidbody rb;
-
+    private Animator anim;
+    private SpriteRenderer sr;
+    
     // Start is called before the first frame update
     void Start()
     {
         State = PlayerState.Default;
         rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -101,8 +105,23 @@ public class PlayerBehaviour : MonoBehaviour
         if (state == PlayerState.Default || state == PlayerState.Carry || state == PlayerState.Climbing)
         {
             if (rb.velocity.x < maxVelocity && rb.velocity.x > -maxVelocity)
-            {
+            {   
                 rb.velocity = new Vector3(Input.GetAxis("Horizontal" + index) * moveSpeed * Time.deltaTime * 100, rb.velocity.y, 0);
+
+                // Current Animation Integration -- 
+                if(rb.velocity.x != 0) {
+                    anim.SetBool("isMoving", true);
+                    if(rb.velocity.x < 0)
+                    {
+                        sr.flipX = true;
+                    }
+                    if(rb.velocity.x > 0)
+                    {
+                        sr.flipX = false;
+                    }
+                } else {
+                    anim.SetBool("isMoving", false);
+                }
             }
         }
     }
@@ -154,11 +173,13 @@ public class PlayerBehaviour : MonoBehaviour
         {
             currentCargo.GetComponent<PlayerBehaviour>().state = otherPlayerCargoState;
         }
+        currentCargo.layer = 9;
     }
 
     public void PickUp(GameObject cargo)
     {
         cargo.GetComponent<Rigidbody>().isKinematic = true;
+        cargo.layer = 0;
         if (cargo.GetComponent<PlayerBehaviour>())
         {
             otherPlayerCargoState = cargo.GetComponent<PlayerBehaviour>().state;
@@ -187,8 +208,18 @@ public class PlayerBehaviour : MonoBehaviour
         hitColliders = hitColliders.Where(hit => hit != gameObject.GetComponent<Collider>())
             .OrderBy(h => Vector2.Distance(transform.position, h.transform.position)).ToArray();
 
-        if (hitColliders.Length > 0){
-            PickUp(hitColliders[0].gameObject);
+        if (hitColliders.Length > 0)
+        {
+            if (!hitColliders[0].gameObject.GetComponent<Orb>())
+            {
+                PickUp(hitColliders[0].gameObject);
+            }
+            else if (!hitColliders[0].gameObject.GetComponent<Orb>().locked || (hitColliders[0].gameObject.GetComponent<Orb>().locked && hitColliders[0].gameObject.GetComponent<Orb>().affiliation == index))
+            {
+                hitColliders[0].gameObject.GetComponent<Orb>().Tint(index);
+                PickUp(hitColliders[0].gameObject);
+            }
+                
             return true;
         }    
         return false;
