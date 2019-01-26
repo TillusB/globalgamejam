@@ -173,11 +173,13 @@ public class PlayerBehaviour : MonoBehaviour
         {
             currentCargo.GetComponent<PlayerBehaviour>().state = otherPlayerCargoState;
         }
+        currentCargo.layer = 9;
     }
 
     public void PickUp(GameObject cargo)
     {
         cargo.GetComponent<Rigidbody>().isKinematic = true;
+        cargo.layer = 0;
         if (cargo.GetComponent<PlayerBehaviour>())
         {
             otherPlayerCargoState = cargo.GetComponent<PlayerBehaviour>().state;
@@ -206,8 +208,18 @@ public class PlayerBehaviour : MonoBehaviour
         hitColliders = hitColliders.Where(hit => hit != gameObject.GetComponent<Collider>())
             .OrderBy(h => Vector2.Distance(transform.position, h.transform.position)).ToArray();
 
-        if (hitColliders.Length > 0){
-            PickUp(hitColliders[0].gameObject);
+        if (hitColliders.Length > 0)
+        {
+            if (!hitColliders[0].gameObject.GetComponent<Orb>())
+            {
+                PickUp(hitColliders[0].gameObject);
+            }
+            else if (!hitColliders[0].gameObject.GetComponent<Orb>().locked || (hitColliders[0].gameObject.GetComponent<Orb>().locked && hitColliders[0].gameObject.GetComponent<Orb>().affiliation == index))
+            {
+                hitColliders[0].gameObject.GetComponent<Orb>().Tint(index);
+                PickUp(hitColliders[0].gameObject);
+            }
+                
             return true;
         }    
         return false;
