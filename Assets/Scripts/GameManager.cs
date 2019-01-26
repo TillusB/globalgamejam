@@ -6,32 +6,30 @@ public class GameManager : MonoBehaviour
 {
     Dictionary<int, PlayerBehaviour> players;
     public GameObject playerPrefab;
-
+    public List<GameObject> levelTiles;
+    public Queue<GameObject> currentLevel;
+    public float scrollSpeed = 15f;
+    private float thresholdX;
+    private float w;
     // Start is called before the first frame update
-    void Awake()
+    void Start()
     {
-
+        w = levelTiles[0].GetComponent<Renderer>().bounds.size.x;
+        thresholdX = -w;
+        currentLevel = new Queue<GameObject>();
+        for(int i = 1; i < 5; i++)
+        {
+            GameObject nextObj = Instantiate(levelTiles[Random.Range(0, levelTiles.Count)]);
+            currentLevel.Enqueue(nextObj);
+            nextObj.transform.position = new Vector3(w/2*(i-1)*2, 0, 0);
+        }
     }
 
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.Joystick1Button7)){
-
-        }
-        if (Input.GetKey(KeyCode.Joystick2Button7))
-        {
-
-        }
-        if (Input.GetKey(KeyCode.Joystick3Button7))
-        {
-
-        }
-        if (Input.GetKey(KeyCode.Joystick4Button7))
-        {
-
-        }
-
+        MoveLevel();
+        CheckLevel();
     }
 
     private void RegisterPlayer(int number)
@@ -48,4 +46,24 @@ public class GameManager : MonoBehaviour
             newPlayer.GetComponent<PlayerBehaviour>().Init();
         }
     }
+
+    private void MoveLevel()
+    {
+        foreach(GameObject tile in currentLevel)
+        {
+            tile.transform.Translate(-scrollSpeed * Time.deltaTime, 0, 0);
+        }
+    }
+
+    private void CheckLevel()
+    {
+        if (currentLevel.ToArray()[0].transform.position.x <= thresholdX)
+        {
+            GameObject nextObj = Instantiate(levelTiles[Random.Range(0, levelTiles.Count)]);
+            currentLevel.Enqueue(nextObj);
+            nextObj.transform.position = new Vector3((w / 2 * 6), 0, 0);
+            Destroy(currentLevel.Dequeue());
+        }
+    }
+   
 }
