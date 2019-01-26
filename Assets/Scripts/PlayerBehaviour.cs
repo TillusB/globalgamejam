@@ -16,7 +16,16 @@ public enum PlayerState
 public class PlayerBehaviour : MonoBehaviour
 {
     private PlayerState state;
-    public PlayerState State { get => state; set => state = value; }
+    public PlayerState State { get
+        {
+            return state;
+        }
+        set
+        {
+            state = value;
+        }
+    }
+
     public int index;
     public float maxVelocity;
     public float jumpForce;
