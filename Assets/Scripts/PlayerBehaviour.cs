@@ -34,12 +34,16 @@ public class PlayerBehaviour : MonoBehaviour
     private int layerMask = 1 << 9;
 
     private Rigidbody rb;
-
+    private Animator anim;
+    private SpriteRenderer sr;
+    
     // Start is called before the first frame update
     void Start()
     {
         State = PlayerState.Default;
         rb = GetComponent<Rigidbody>();
+        anim = GetComponent<Animator>();
+        sr = GetComponent<SpriteRenderer>();
     }
 
     // Update is called once per frame
@@ -92,8 +96,23 @@ public class PlayerBehaviour : MonoBehaviour
         if (state == PlayerState.Default || state == PlayerState.Carry || state == PlayerState.Climbing)
         {
             if (rb.velocity.x < maxVelocity && rb.velocity.x > -maxVelocity)
-            {
+            {   
                 rb.velocity = new Vector3(Input.GetAxis("Horizontal" + index) * moveSpeed * Time.deltaTime * 100, rb.velocity.y, 0);
+
+                // Current Animation Integration -- 
+                if(rb.velocity.x != 0) {
+                    anim.SetBool("isMoving", true);
+                    if(rb.velocity.x < 0)
+                    {
+                        sr.flipX = true;
+                    }
+                    if(rb.velocity.x > 0)
+                    {
+                        sr.flipX = false;
+                    }
+                } else {
+                    anim.SetBool("isMoving", false);
+                }
             }
         }
     }
