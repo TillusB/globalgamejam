@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public enum PlayerState
 {
@@ -11,8 +12,6 @@ public enum PlayerState
     Dead
 }
 
-[RequireComponent(typeof(Rigidbody2D))]
-[RequireComponent(typeof(BoxCollider2D))]
 public class PlayerBehaviour : MonoBehaviour
 {
     private PlayerState state;
@@ -24,30 +23,41 @@ public class PlayerBehaviour : MonoBehaviour
     public float accelleration;
     public float moveSpeed;
     public float groundDistance;
+    public float pickUpRadius = 1.5f;
     public float fallMultiplier = 2.5f;
 
-    private Rigidbody2D rb;
+    public Vector3 carryPos;
+    private GameObject currentCargo;
+    private PlayerState otherPlayerCargoState;
+
+    private int layerMask = 1 << 9;
+
+    private Rigidbody rb;
 
     // Start is called before the first frame update
     void Start()
     {
         State = PlayerState.Default;
-        rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetButtonDown("Action" + index))
+        PerformAction();
+        HorizontalMovement();
+        VerticalMovement();
+    }
+
+    public void PerformAction()
+    {
+        if (Input.GetButtonDown("Action" + index))
         {
+            Debug.Log("called action by" + gameObject.name);
             switch (state)
             {
                 case PlayerState.Default:
-                    if (CanPickUp())
-                    {
-                        Pickup();
-                    }
-                    else
+                    if (!CanPickUp())
                     {
                         Jump();
                     }
@@ -61,18 +71,6 @@ public class PlayerBehaviour : MonoBehaviour
                     break;
             }
         }
-
-        HorizontalMovement();
-
-        if (rb.velocity.y < 1)
-        {
-            rb.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-        }
-    }
-
-    private bool CanPickUp()
-    {
-        return false;
     }
 
     public void Init()
@@ -81,35 +79,93 @@ public class PlayerBehaviour : MonoBehaviour
         //put player in default pos etc
     }
 
+    /// <summary> ////////////////////////
+    /// How Movement is calculated + Input
+    /// </summary>
     public void HorizontalMovement()
     {
-        rb.velocity = new Vector2(Input.GetAxis("Horizontal" + index) * moveSpeed * Time.deltaTime * 100, rb.velocity.y);
+        if (state == PlayerState.Default || state == PlayerState.Carry)
+        {
+            if (rb.velocity.x < maxVelocity && rb.velocity.x > -maxVelocity)
+            {
+                rb.velocity = new Vector3(Input.GetAxis("Horizontal" + index) * moveSpeed * Time.deltaTime * 100, rb.velocity.y, 0);
+            }
+        }
     }
-
+    public void VerticalMovement()
+    {
+        if (state == PlayerState.Default || state == PlayerState.Carry)
+        {
+            if (rb.velocity.y < 1)
+            {
+                rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+            }
+        }
+    }
+    /////////////////////////////////////
     public void Jump()
     {
         if (Grounded())
         {
-            rb.AddForce(new Vector2(0, jumpForce), ForceMode2D.Impulse);
+            rb.AddForce(new Vector2(0, jumpForce), ForceMode.Impulse);
         }
     }
     public void Throw()
     {
-
+        currentCargo.transform.SetParent(null, true);
+        currentCargo.transform.position = transform.position + carryPos;
+        currentCargo.GetComponent<Rigidbody>().isKinematic = false;
+        currentCargo.GetComponent<Rigidbody>().AddForce(new Vector3(Input.GetAxis("Horizontal" + index), Input.GetAxis("Vertical" + index) * -1, 0) * throwForce, ForceMode.Impulse);
+        Debug.Log(Input.GetAxis("Horizontal" + index));
+        state = PlayerState.Default;
+        if (currentCargo.GetComponent<PlayerBehaviour>())
+        {
+            currentCargo.GetComponent<PlayerBehaviour>().state = otherPlayerCargoState;
+        }
     }
-    public void Pickup()
+
+    public void PickUp(GameObject cargo)
     {
+        cargo.GetComponent<Rigidbody>().isKinematic = true;
+        if (cargo.GetComponent<PlayerBehaviour>())
+        {
+            otherPlayerCargoState = cargo.GetComponent<PlayerBehaviour>().state;
+            cargo.GetComponent<PlayerBehaviour>().State = PlayerState.Carried;
+        }
+        cargo.transform.parent = gameObject.transform;
+        cargo.transform.localPosition = carryPos;
+        currentCargo = cargo;
         State = PlayerState.Carry;
     }
+
     public void Die()
     {
         State = PlayerState.Dead;
     }
 
+
+    /// <summary>
+    /// bools
+    /// </summary>
+    /// 
+    private bool CanPickUp()
+    {
+        Collider[] hitColliders = Physics.OverlapSphere(transform.position, pickUpRadius, layerMask);
+
+        hitColliders = hitColliders.Where(hit => hit != gameObject.GetComponent<Collider>())
+            .OrderBy(h => Vector2.Distance(transform.position, h.transform.position)).ToArray();
+
+        if (hitColliders.Length > 0){
+            PickUp(hitColliders[0].gameObject);
+            return true;
+        }    
+        return false;
+    }
+
     private bool Grounded()
     {
         
-        if(Physics2D.Raycast(rb.position, Vector2.down, groundDistance))
+        if(Physics.Raycast(rb.position, Vector2.down, groundDistance))
         {
             return true;
         }
