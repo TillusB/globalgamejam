@@ -9,6 +9,7 @@ public enum PlayerState
     Default,
     Carry,
     Carried,
+    Climbing,
     Dead
 }
 
@@ -67,6 +68,10 @@ public class PlayerBehaviour : MonoBehaviour
                     break;
                 case PlayerState.Carried:
                     break;
+                case PlayerState.Climbing:
+                    StopClimbing();
+                    State = default;
+                    break;
                 case PlayerState.Dead:
                     break;
             }
@@ -101,6 +106,11 @@ public class PlayerBehaviour : MonoBehaviour
                 rb.velocity += Vector3.up * Physics.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
             }
         }
+
+        if (state == PlayerState.Climbing)
+        {
+            transform.Translate(0, Input.GetAxis("Vertical" + index) * moveSpeed * -0.025f, 0);
+        }
     }
     /////////////////////////////////////
     public void Jump()
@@ -110,6 +120,14 @@ public class PlayerBehaviour : MonoBehaviour
             rb.AddForce(new Vector2(0, jumpForce), ForceMode.Impulse);
         }
     }
+
+    public void StopClimbing()
+    {
+        rb.isKinematic = false;
+        rb.AddForce(Input.GetAxis("Horizontal" + index), Input.GetAxis("Vertical" + index) * jumpForce, 0);
+        state = PlayerState.Default;
+    }
+
     public void Throw()
     {
         currentCargo.transform.SetParent(null, true);
