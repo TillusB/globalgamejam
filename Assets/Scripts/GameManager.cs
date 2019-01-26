@@ -10,17 +10,18 @@ public class GameManager : MonoBehaviour
     public Queue<GameObject> currentLevel;
     public float scrollSpeed = 15f;
     private float thresholdX;
+    private float w;
     // Start is called before the first frame update
     void Start()
     {
-        thresholdX = Camera.main.ScreenToWorldPoint(new Vector3(-Camera.main.pixelWidth / 2, 0, 0)).x;
+        w = levelTiles[0].GetComponent<Renderer>().bounds.size.x;
+        thresholdX = -w;
         currentLevel = new Queue<GameObject>();
-        for(int i = 1; i < 4; i++)
+        for(int i = 1; i < 5; i++)
         {
             GameObject nextObj = Instantiate(levelTiles[Random.Range(0, levelTiles.Count)]);
             currentLevel.Enqueue(nextObj);
-            nextObj.transform.position = (Camera.main.ScreenToWorldPoint(new Vector3((Camera.main.pixelWidth) * i, 0, 0)));
-
+            nextObj.transform.position = new Vector3(w/2*(i-1)*2, 0, 0);
         }
     }
 
@@ -60,7 +61,7 @@ public class GameManager : MonoBehaviour
         {
             GameObject nextObj = Instantiate(levelTiles[Random.Range(0, levelTiles.Count)]);
             currentLevel.Enqueue(nextObj);
-            nextObj.transform.position.Set(Camera.main.ScreenToWorldPoint(new Vector3((Camera.main.pixelWidth)*2, 0, 0)).x, 1, 0);
+            nextObj.transform.position = new Vector3((w / 2 * 6), 0, 0);
             Destroy(currentLevel.Dequeue());
         }
     }
