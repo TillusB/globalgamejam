@@ -63,7 +63,7 @@ public class PlayerBehaviour : MonoBehaviour
     {
         if (Input.GetButtonDown("Action" + index))
         {
-            Debug.Log("called action by" + gameObject.name);
+            //Debug.Log("called action by" + gameObject.name);
             switch (state)
             {
                 case PlayerState.Default:
@@ -78,7 +78,7 @@ public class PlayerBehaviour : MonoBehaviour
                 case PlayerState.Carried:
                     break;
                 case PlayerState.Climbing:
-                    StopClimbing();
+                    StopClimbing(true);
                     State = default;
                     break;
                 case PlayerState.Dead:
@@ -98,7 +98,7 @@ public class PlayerBehaviour : MonoBehaviour
     /// </summary>
     public void HorizontalMovement()
     {
-        if (state == PlayerState.Default || state == PlayerState.Carry)
+        if (state == PlayerState.Default || state == PlayerState.Carry || state == PlayerState.Climbing)
         {
             if (rb.velocity.x < maxVelocity && rb.velocity.x > -maxVelocity)
             {
@@ -130,11 +130,16 @@ public class PlayerBehaviour : MonoBehaviour
         }
     }
 
-    public void StopClimbing()
+    public void StopClimbing(bool applyJump)
     {
         rb.isKinematic = false;
-        rb.AddForce(Input.GetAxis("Horizontal" + index), Input.GetAxis("Vertical" + index) * jumpForce, 0);
+        //rb.velocity = Vector3.zero;
+        //rb.AddForce(Input.GetAxis("Horizontal" + index), Input.GetAxis("Vertical" + index) * -jumpForce * 100, 0);
         state = PlayerState.Default;
+        if (Input.GetAxis("Vertical" + index) < -0.5f && applyJump)
+        {
+            rb.AddForce(new Vector2(0, jumpForce), ForceMode.Impulse);
+        }
     }
 
     public void Throw()
