@@ -908,4 +908,4 @@ MonoBehaviour:
   levelTiles:
   - {fileID: 7183140662769710201, guid: 265085483d3c3184e875d964526c5149, type: 3}
   - {fileID: 2961674090842926118, guid: 83a3020b98a39234eafdb363ef0027d1, type: 3}
-  scrollSpeed: 3
+  scrollSpeed: 1
