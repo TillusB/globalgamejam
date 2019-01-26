@@ -24,14 +24,14 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        w = levelTiles[0].GetComponent<Renderer>().bounds.size.x;
-        thresholdX = -w;
+        w = levelTiles[0].GetComponent<BoxCollider2D>().size.x;
+        thresholdX = -20;
         currentLevel = new Queue<GameObject>();
         for(int i = 1; i < 5; i++)
         {
             GameObject nextObj = Instantiate(levelTiles[Random.Range(0, levelTiles.Count)]);
             currentLevel.Enqueue(nextObj);
-            nextObj.transform.position = new Vector3(w/2*(i-1)*2, 0, 0);
+            nextObj.transform.position = new Vector3(20/2*(i-1)*2, 0, 0);
         }
     }
 
@@ -71,7 +71,7 @@ public class GameManager : MonoBehaviour
         {
             GameObject nextObj = Instantiate(levelTiles[Random.Range(0, levelTiles.Count)]);
             currentLevel.Enqueue(nextObj);
-            nextObj.transform.position = new Vector3((w / 2 * 6), 0, 0);
+            nextObj.transform.position = new Vector3((20 / 2 * 6), 0, 0);
             Destroy(currentLevel.Dequeue());
         }
     }
