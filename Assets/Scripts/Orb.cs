@@ -10,6 +10,7 @@ public class Orb : MonoBehaviour
 
     private SpriteRenderer sr;
     private GameObject chain;
+    private Item myItem;
 
     // Start is called before the first frame update
     void Start()
@@ -20,6 +21,7 @@ public class Orb : MonoBehaviour
         {
             Unlock();
         }
+        myItem = GetComponent<Item>();
     }
 
     // Update is called once per frame
@@ -55,6 +57,7 @@ public class Orb : MonoBehaviour
         {
             Unlock();
         }
+        myItem.type = (PlayerType)affiliation;
     }
 
     public void Unlock()

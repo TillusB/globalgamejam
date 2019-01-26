@@ -4,7 +4,7 @@ using UnityEngine;
 
 public enum PlayerType
 {
-    Red,
+    Red=1,
     Blue,
     Green,
     Yellow
