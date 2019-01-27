@@ -10,6 +10,7 @@ public enum PlayerState
     Carry,
     Carried,
     Climbing,
+    Stunned,
     Dead
 }
 
@@ -84,6 +85,8 @@ public class PlayerBehaviour : MonoBehaviour
                 case PlayerState.Climbing:
                     StopClimbing(true);
                     State = default;
+                    break;
+                case PlayerState.Stunned:
                     break;
                 case PlayerState.Dead:
                     break;
@@ -171,7 +174,14 @@ public class PlayerBehaviour : MonoBehaviour
         state = PlayerState.Default;
         if (currentCargo.GetComponent<PlayerBehaviour>())
         {
-            currentCargo.GetComponent<PlayerBehaviour>().state = otherPlayerCargoState;
+            if (otherPlayerCargoState == PlayerState.Stunned)
+            {
+                currentCargo.GetComponent<PlayerBehaviour>().state = PlayerState.Default;
+            }
+            else
+            {
+                currentCargo.GetComponent<PlayerBehaviour>().state = otherPlayerCargoState;
+            }
         }
         currentCargo.layer = 9;
     }
