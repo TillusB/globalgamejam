@@ -239,6 +239,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 892607228261874968, guid: 43f7db3512e25b549a178f2a2527e9a1,
+        type: 3}
+      propertyPath: jumpForce
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 892607228261874968, guid: 43f7db3512e25b549a178f2a2527e9a1,
+        type: 3}
+      propertyPath: throwForce
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 43f7db3512e25b549a178f2a2527e9a1, type: 3}
 --- !u!1001 &367725860
@@ -308,6 +318,16 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 892607228261874968, guid: 2525cf6aa0c9602459b8bdf646663b6c,
+        type: 3}
+      propertyPath: jumpForce
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 892607228261874968, guid: 2525cf6aa0c9602459b8bdf646663b6c,
+        type: 3}
+      propertyPath: throwForce
+      value: 12
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2525cf6aa0c9602459b8bdf646663b6c, type: 3}
 --- !u!1001 &576974297
@@ -376,6 +396,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 892607228261874968, guid: 2159914145d81aa4fb8fff2d4cae38f2,
+        type: 3}
+      propertyPath: jumpForce
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 892607228261874968, guid: 2159914145d81aa4fb8fff2d4cae38f2,
+        type: 3}
+      propertyPath: throwForce
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2159914145d81aa4fb8fff2d4cae38f2, type: 3}
@@ -737,6 +767,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 892607228261874968, guid: bdc05cc4db20cb24f8ebb6c7bd650071,
+        type: 3}
+      propertyPath: jumpForce
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 892607228261874968, guid: bdc05cc4db20cb24f8ebb6c7bd650071,
+        type: 3}
+      propertyPath: throwForce
+      value: 12
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: bdc05cc4db20cb24f8ebb6c7bd650071, type: 3}

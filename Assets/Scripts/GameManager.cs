@@ -33,9 +33,9 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (instance != this)
+        if (instance != null)
         {
-            Destroy(this.gameObject);
+            Destroy(this);
         }
         else
         {
