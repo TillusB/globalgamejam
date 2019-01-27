@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class Obstacle : ResourceConsumer
 {
+    public float damageValue;
     public override bool Consume(Item item)
     {
         if(item.type == type)
@@ -12,5 +13,15 @@ public class Obstacle : ResourceConsumer
             return true;
         }
         return false;
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        House house = collision.gameObject.GetComponent<House>();
+        if (house)
+        {
+            house.TakeDamage(damageValue);
+            Destroy(gameObject);
+        }
     }
 }
