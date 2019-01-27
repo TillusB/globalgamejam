@@ -10,7 +10,7 @@ public class DeathTrap : MonoBehaviour
         PlayerBehaviour playerHit = collision.gameObject.GetComponent<PlayerBehaviour>();
         if (playerHit)
         {
-            playerHit.State = PlayerState.Dead;
+            playerHit.SetPlayerState(PlayerState.Dead);
         }
     }
 }
