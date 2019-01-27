@@ -49,8 +49,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   index: 4
   maxVelocity: 5
-  jumpForce: 5
-  throwForce: 10
+  jumpForce: 8
+  throwForce: 12
   accelleration: 15
   moveSpeed: 3
   groundDistance: 1
@@ -99,7 +99,7 @@ SpriteRenderer:
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
-  m_Size: {x: 0.16, y: 0.16}
+  m_Size: {x: 1.6, y: 1.6}
   m_AdaptiveModeThreshold: 0.5
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 0
@@ -131,7 +131,7 @@ Animator:
   m_GameObject: {fileID: 892607228261874967}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: 1c1ba82e120a7a547bf955acac75c6f7, type: 2}
+  m_Controller: {fileID: 22100000, guid: 921a2f453befdc446954ad8c87650e59, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
