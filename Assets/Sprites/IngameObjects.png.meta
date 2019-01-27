@@ -6,6 +6,10 @@ TextureImporter:
     21300002: Z_IngameObjects_1
     21300004: Z_IngameObjects_2
     21300006: Z_IngameObjects_3
+    21300008: IngameObjects_0
+    21300010: IngameObjects_1
+    21300012: IngameObjects_2
+    21300014: IngameObjects_3
   externalObjects: {}
   serializedVersion: 7
   mipmaps:
@@ -88,7 +92,7 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Z_IngameObjects_0
+      name: IngameObjects_0
       rect:
         serializedVersion: 2
         x: 0
@@ -96,19 +100,19 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 6d0d0d8ed3aecd04a8fc9794a5edf354
+      spriteID: 1453ddb74800f004a9685b733aba6bf4
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Z_IngameObjects_1
+      name: IngameObjects_1
       rect:
         serializedVersion: 2
         x: 16
@@ -116,19 +120,19 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 901508a5788102147a90c6b742aba218
+      spriteID: 5a7ef3ad9057734408e9908765de8d91
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Z_IngameObjects_2
+      name: IngameObjects_2
       rect:
         serializedVersion: 2
         x: 32
@@ -136,33 +140,33 @@ TextureImporter:
         width: 16
         height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: d04a0b77454529c45947264a12536faa
+      spriteID: dad16dcf9dbb02a47bea819a20e50c92
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Z_IngameObjects_3
+      name: IngameObjects_3
       rect:
         serializedVersion: 2
         x: 0
         y: 128
         width: 16
-        height: 15
+        height: 16
       alignment: 0
-      pivot: {x: 0.5, y: 0.5}
+      pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: cbb4804570c716d4ab34b378453b3655
+      spriteID: cd6f922831d1dcd4387f012b01e0bdd1
       vertices: []
       indices: 
       edges: []
