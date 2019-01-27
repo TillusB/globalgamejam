@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum PlayerType
 {
@@ -21,9 +22,26 @@ public class GameManager : MonoBehaviour
     private float thresholdX;
     private float w;
 
+    public Text distanceText;
+    public float distanceCovered;
+
+    public Vector3 respawnPosition;
+
+    public List<bool> playerStatus;
+    public static GameManager instance;
+
     // Start is called before the first frame update
     void Start()
     {
+        if (instance != null)
+        {
+            Destroy(this);
+        }
+        else
+        {
+            instance = this;
+        }
+
         w = levelTiles[0].GetComponent<BoxCollider2D>().size.x;
         thresholdX = -20;
         currentLevel = new Queue<GameObject>();
@@ -35,11 +53,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        distanceCovered += Time.deltaTime * scrollSpeed;
+        UpdateDistanceText();
+    }
+
     // Update is called once per frame
     void FixedUpdate()
     {
         MoveLevel();
         CheckLevel();
+    }
+
+    public void UpdateDistanceText()
+    {
+        if (distanceText != null)
+        {
+            distanceText.text = distanceCovered.ToString();
+        }
     }
 
     private void RegisterPlayer(int number)
@@ -75,5 +107,32 @@ public class GameManager : MonoBehaviour
             Destroy(currentLevel.Dequeue());
         }
     }
+
+    public void CheckPlayerStatus()
+    {
+        if (playerStatus.Count > 3)
+        {
+            RestartLevel();
+        }
+    }
+
+    public void RespawnPlayerCoroutineStarter (float respawnTime, GameObject playerObject)
+    {
+        StartCoroutine(RespawnPlayer(respawnTime, playerObject));
+    }
    
+    public IEnumerator RespawnPlayer (float respawnTime, GameObject playerObject)
+    {
+        playerStatus.Add(playerObject);
+        CheckPlayerStatus();
+        yield return new WaitForSeconds(respawnTime);
+        playerObject.transform.position = respawnPosition;
+        playerObject.GetComponent<PlayerBehaviour>().State = PlayerState.Default;
+        playerStatus.Remove(playerObject);
+    }
+
+    public void RestartLevel()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+    }
 }

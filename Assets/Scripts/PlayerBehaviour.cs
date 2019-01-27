@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public enum PlayerState
 {
@@ -26,7 +27,6 @@ public class PlayerBehaviour : MonoBehaviour
             state = value;
         }
     }
-
     public int index;
     public float maxVelocity;
     public float jumpForce;
@@ -36,6 +36,7 @@ public class PlayerBehaviour : MonoBehaviour
     public float groundDistance;
     public float pickUpRadius = 1.5f;
     public float fallMultiplier = 2.5f;
+    public float respawnTimer = 10f;
 
     public Vector3 carryPos;
     private GameObject currentCargo;
@@ -246,5 +247,46 @@ public class PlayerBehaviour : MonoBehaviour
         {
             return false;
         }
+    }
+
+    public void SetPlayerState (PlayerState desiredState)
+    {
+        if (desiredState == state)
+        {
+            Debug.Log(gameObject.name + " is already in state : " + desiredState.ToString());
+            return;
+        }
+        if (desiredState == PlayerState.Carried)
+        {
+            Debug.Log(gameObject.name + " is now in state : " + desiredState.ToString());
+            state = desiredState;
+            return;
+        }
+        if (desiredState == PlayerState.Carry)
+        {
+            Debug.Log(gameObject.name + " is now in state : " + desiredState.ToString());
+            state = desiredState;
+            return;
+        }
+        if (desiredState == PlayerState.Climbing)
+        {
+            Debug.Log(gameObject.name + " is now in state : " + desiredState.ToString());
+            state = desiredState;
+            return;
+        }
+        if (desiredState == PlayerState.Dead)
+        {
+            Debug.Log(gameObject.name + " is now in state : " + desiredState.ToString());
+            GameManager.instance.RespawnPlayer(respawnTimer, gameObject);
+            state = desiredState;
+            return;
+        }
+        if (desiredState == PlayerState.Default)
+        {
+            Debug.Log(gameObject.name + " is now in state : " + desiredState.ToString());
+            state = desiredState;
+            return;
+        }
+
     }
 }
