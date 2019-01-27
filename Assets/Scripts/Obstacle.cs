@@ -15,9 +15,11 @@ public class Obstacle : ResourceConsumer
         return false;
     }
 
-    private void OnCollisionEnter(Collision collision)
+
+
+    private void OnTriggerEnter(Collider other)
     {
-        House house = collision.gameObject.GetComponent<House>();
+        House house = other.gameObject.GetComponent<House>();
         if (house)
         {
             house.TakeDamage(damageValue);
