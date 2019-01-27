@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6066649767045999878}
   - component: {fileID: 6909062416320665112}
   - component: {fileID: 8906903199920052293}
+  - component: {fileID: 3387706939695944483}
   m_Layer: 0
   m_Name: SmallObst_Bot_Thorn(G)
   m_TagString: Untagged
@@ -108,3 +109,17 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   stunTime: 0
   despawns: 0
+--- !u!114 &3387706939695944483
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7262505982316824047}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbfad72a2987d4d49aea1a12b6f57f5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 3
+  damageValue: 1

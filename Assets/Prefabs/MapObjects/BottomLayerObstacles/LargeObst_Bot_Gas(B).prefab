@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8634313620045423370}
   - component: {fileID: 2421937577773745321}
+  - component: {fileID: 1532490169310730972}
+  - component: {fileID: 730955972629814461}
   m_Layer: 0
   m_Name: LargeObst_Bot_Gas(B)
   m_TagString: Untagged
@@ -79,3 +81,30 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1532490169310730972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2820807670180136625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbfad72a2987d4d49aea1a12b6f57f5e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  type: 2
+  damageValue: 1
+--- !u!65 &730955972629814461
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2820807670180136625}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 8, z: 0.2}
+  m_Center: {x: 0, y: 4, z: 0}

@@ -277,14 +277,20 @@ public class PlayerBehaviour : MonoBehaviour
         if (desiredState == PlayerState.Dead)
         {
             Debug.Log(gameObject.name + " is now in state : " + desiredState.ToString());
-            GameManager.instance.RespawnPlayer(respawnTimer, gameObject);
+            GameManager.instance.RespawnPlayerCoroutineStarter(respawnTimer, gameObject);
             state = desiredState;
+            if (currentCargo != null)
+            {
+                currentCargo.transform.parent = null;
+            }
+            anim.SetBool("isDying", true);
             return;
         }
         if (desiredState == PlayerState.Default)
         {
             Debug.Log(gameObject.name + " is now in state : " + desiredState.ToString());
             state = desiredState;
+            anim.SetBool("isDying", false);
             return;
         }
 

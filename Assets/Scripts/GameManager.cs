@@ -72,7 +72,7 @@ public class GameManager : MonoBehaviour
     {
         if (distanceText != null)
         {
-            distanceText.text = distanceCovered.ToString();
+            distanceText.text = Mathf.FloorToInt(distanceCovered).ToString() + "m";
         }
     }
 
@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviour
         CheckPlayerStatus();
         yield return new WaitForSeconds(respawnTime);
         playerObject.transform.position = respawnPosition;
-        playerObject.GetComponent<PlayerBehaviour>().State = PlayerState.Default;
+        playerObject.GetComponent<PlayerBehaviour>().SetPlayerState(PlayerState.Default);
         playerStatus.Remove(playerObject);
     }
 
