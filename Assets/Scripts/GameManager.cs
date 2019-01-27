@@ -18,6 +18,8 @@ public class GameManager : MonoBehaviour
     public List<GameObject> levelTiles;
     public Queue<GameObject> currentLevel;
     public float scrollSpeed = 15f;
+    public float maxSpeed;
+    public float minSpeed;
 
     private float thresholdX;
     private float w;
@@ -134,5 +136,18 @@ public class GameManager : MonoBehaviour
     public void RestartLevel()
     {
         UnityEngine.SceneManagement.SceneManager.LoadScene(0);
+    }
+
+    public void AlterSpeed(float speed)
+    {
+        scrollSpeed += speed;
+        if (scrollSpeed <= minSpeed) scrollSpeed = minSpeed;
+        if (scrollSpeed >= maxSpeed) scrollSpeed = maxSpeed;
+    }
+
+    public void GG()
+    {
+        scrollSpeed = 0;
+        Debug.Log("Final Score: " + distanceCovered + "!");
     }
 }

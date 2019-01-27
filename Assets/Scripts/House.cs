@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UI;
 
 public class House : MonoBehaviour
 {
@@ -9,17 +10,23 @@ public class House : MonoBehaviour
     public float useFuelDelay;
     public float health;
     public float hungerDamage;
-
+    public float speedReward;
+    public Text countDownText;
     private float time;
     // Start is called before the first frame update
     void Start()
     {
+        countDownText = GetComponentInChildren<Text>();
     }
 
     // Update is called once per frame
     void Update()
     {
         time += Time.deltaTime;
+        if (countDownText)
+        {
+            countDownText.text = ""+(useFuelDelay - time);
+        }
         if(time >= useFuelDelay)
         {
             time = 0;
@@ -48,7 +55,21 @@ public class House : MonoBehaviour
         }
         if (!enoughFuel)
         {
-            health -= hungerDamage*takeDamage;
+            TakeDamage(takeDamage * hungerDamage);
+        }
+        else
+        {
+            GameManager.instance.AlterSpeed(speedReward);
+        }
+    }
+
+    public void TakeDamage(float damage)
+    {
+        health -= damage;
+        GameManager.instance.AlterSpeed(-1/damage);
+        if(health <= 0)
+        {
+            GameManager.instance.GG();
         }
     }
 }
