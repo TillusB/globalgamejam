@@ -23,7 +23,10 @@ public class House : MonoBehaviour
     void Update()
     {
         time += Time.deltaTime;
-        countDownText.text = ""+(useFuelDelay - time);
+        if (countDownText)
+        {
+            countDownText.text = ""+(useFuelDelay - time);
+        }
         if(time >= useFuelDelay)
         {
             time = 0;
