@@ -10,6 +10,8 @@ GameObject:
   m_Component:
   - component: {fileID: 7363495932385743562}
   - component: {fileID: 5812715383274711266}
+  - component: {fileID: 1936235895366935597}
+  - component: {fileID: 144348807049523651}
   m_Layer: 0
   m_Name: SmallObst_Bot_Thorn(Y)
   m_TagString: Untagged
@@ -26,7 +28,7 @@ Transform:
   m_GameObject: {fileID: 1897729139249971351}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -79,3 +81,30 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!65 &1936235895366935597
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897729139249971351}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 1.515625, z: 0.2}
+  m_Center: {x: 0, y: 0.7578125, z: 0}
+--- !u!114 &144348807049523651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1897729139249971351}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bae9c6e8bc1074242bd276f9ae01e972, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  stunTime: 0
+  despawns: 0

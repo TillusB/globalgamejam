@@ -11,6 +11,7 @@ public class DeathTrap : MonoBehaviour
         if (playerHit)
         {
             playerHit.State = PlayerState.Dead;
+            playerHit.transform.SetParent(transform);
         }
     }
 }
